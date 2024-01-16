@@ -38,15 +38,15 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 3
-        env:
-          - name: PORT
-            value: {{ .Values.containers.containerPort | quote }}
         - resources: {}
           terminationMessagePath: /dev/termination-log
           name: {{ .Chart.Name }}
           ports:
             - containerPort: {{ .Values.containers.containerPort }}
               protocol: TCP
+          env:
+            - name: PORT
+              value: {{ .Values.containers.containerPort | quote }}
           imagePullPolicy: Always
           terminationMessagePolicy: File
           image: {{ .Values.containers.image }}:{{ .Values.containers.tag }}
