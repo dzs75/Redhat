@@ -8,16 +8,15 @@ spec:
     matchLabels:
       app: {{ .Chart.Name }}
   template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
     spec:
       volumes:
         - name: index-html
           configMap:
             name: '{{ .Chart.Name }}-html'
             defaultMode: 420
-    metadata:
-      labels:
-        app: {{ .Chart.Name }}
-    spec:
       containers:
         - resources: {}
           terminationMessagePath: /dev/termination-log
