@@ -8,11 +8,20 @@ spec:
     matchLabels:
       app: {{ .Chart.Name }}
   template:
+    spec:
+      volumes:
+        - name: index-html
+          configMap:
+            name: '{{ .Chart.Name }}-html'
+            defaultMode: 420
     metadata:
       labels:
         app: {{ .Chart.Name }}
     spec:
       containers:
+        volumeMounts:
+          - name: index-html
+            mountPath: /tmp/html # this will mount the html.index file to it application location
         - resources: {}
           terminationMessagePath: /dev/termination-log
           name: {{ .Chart.Name }}
